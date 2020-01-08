@@ -1,48 +1,65 @@
 package com.codecool.curencyexchange.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import java.util.Date;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "no",
+        "effectiveDate",
+        "bid",
+        "ask"
+})
 public class Rate {
-    private float bid;
-    private float ask;
-    private Date effectiveDate;
 
-    public Rate(){}
+    @JsonProperty("no")
+    private String no;
+    @JsonProperty("effectiveDate")
+    private String effectiveDate;
+    @JsonProperty("bid")
+    private double bid;
+    @JsonProperty("ask")
+    private double ask;
 
-    public void setEffectiveDate(Date effectiveDate) {
-        this.effectiveDate = effectiveDate;
+    @JsonProperty("no")
+    public String getNo() {
+        return no;
     }
 
-    public Date getEffectiveDate() {
+    @JsonProperty("no")
+    public void setNo(String no) {
+        this.no = no;
+    }
+
+    @JsonProperty("effectiveDate")
+    public String getEffectiveDate() {
         return effectiveDate;
     }
 
-    public void setBid(float bid) {
-        this.bid = bid;
+    @JsonProperty("effectiveDate")
+    public void setEffectiveDate(String effectiveDate) {
+        this.effectiveDate = effectiveDate;
     }
 
-    public void setAsk(float ask) {
-        this.ask = ask;
-    }
-
-    public float getBid() {
+    @JsonProperty("bid")
+    public double getBid() {
         return bid;
     }
 
-    public float getAsk() {
+    @JsonProperty("bid")
+    public void setBid(Double bid) {
+        this.bid = bid;
+    }
+
+    @JsonProperty("ask")
+    public double getAsk() {
         return ask;
     }
 
-    @Override
-    public String toString() {
-        return "bid=" + bid +
-                "ask" + ask + '\'' +
-                '}';
+    @JsonProperty("ask")
+    public void setAsk(Double ask) {
+        this.ask = ask;
     }
-
-
 
 }

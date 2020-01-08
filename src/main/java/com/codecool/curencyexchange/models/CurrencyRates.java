@@ -1,32 +1,66 @@
 package com.codecool.curencyexchange.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "table",
+        "currency",
+        "code",
+        "rates"
+})
 public class CurrencyRates {
+
+    @JsonProperty("table")
+    private String table;
+    @JsonProperty("currency")
     private String currency;
+    @JsonProperty("code")
     private String code;
-    private List<Rate> rates;
+    @JsonProperty("rates")
+    private List<Rate> rates = null;
 
-    public CurrencyRates(){}
+    @JsonProperty("table")
+    public String getTable() {
+        return table;
+    }
 
+    @JsonProperty("table")
+    public void setTable(String table) {
+        this.table = table;
+    }
 
+    @JsonProperty("currency")
     public String getCurrency() {
         return currency;
     }
 
+    @JsonProperty("currency")
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    @JsonProperty("code")
     public String getCode() {
         return code;
     }
 
-    public List getRates() {
+    @JsonProperty("code")
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    @JsonProperty("rates")
+    public List<Rate> getRates() {
         return rates;
     }
 
-    public void addRate(Rate rate){
-        rates.add(rate);
+    @JsonProperty("rates")
+    public void setRates(List<Rate> rates) {
+        this.rates = rates;
     }
+
 }
