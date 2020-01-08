@@ -2,12 +2,14 @@ package com.codecool.curencyexchange.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.List;
 
-@JsonIgnoreProperties
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CurrencyRates {
     private String currency;
     private String code;
-    private Rates rates;
+    private List<Rate> rates;
 
     public CurrencyRates(){}
 
@@ -20,7 +22,11 @@ public class CurrencyRates {
         return code;
     }
 
-    public Rates getRates() {
+    public List getRates() {
         return rates;
+    }
+
+    public void addRate(Rate rate){
+        rates.add(rate);
     }
 }
