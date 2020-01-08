@@ -1,6 +1,7 @@
 package com.codecool.curencyexchange.models;
 
 import com.codecool.curencyexchange.helpers.MySerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -14,10 +15,12 @@ public class Rate {
 
     @JsonProperty("sell")
     @JsonSerialize(using = MySerializer.class)
+   // @JsonFormat(shape = JsonFormat.Shape.NUMBER_FLOAT)
     private double bid;
 
-    @JsonProperty("buy")
     @JsonSerialize(using = MySerializer.class)
+    @JsonProperty("buy")
+    //@JsonFormat(shape = JsonFormat.Shape.NUMBER_FLOAT)
     private double ask;
     private Date effectiveDate;
 
