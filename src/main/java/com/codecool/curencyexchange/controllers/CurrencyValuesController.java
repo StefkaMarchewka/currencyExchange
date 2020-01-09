@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/exchange/values")
+@RequestMapping(value = "/exchange/values")
 public class CurrencyValuesController {
 
     @Autowired
@@ -35,7 +35,7 @@ public class CurrencyValuesController {
     @PostMapping()
     public ExchangeResult exchange(@RequestBody ExchangeRequest request){
         repository.save(request);
-        printResourcesFromDb();
+        //printResourcesFromDb();
         return exchangeService.exchange(request.getFromCurr(), request.getToCurr(), request.getAmount());
     }
 

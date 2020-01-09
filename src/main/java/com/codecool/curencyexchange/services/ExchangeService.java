@@ -6,27 +6,24 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExchangeService {
 
-    private APIConsumer apiConsumer;
+    private APIConsumer apiConsumer = new APIConsumer();
 
     public ExchangeService(){}
 
     public ExchangeResult exchange(String fromCurr, String toCurr, float amount){
         if(fromCurr.equals("pln")){
-            buy(toCurr, amount);
+            return buy(toCurr, amount);
         }else if (toCurr.equals("pln")){
-            sell(toCurr, amount);
-        }else{
-            //exchange into pl and then buy
+            return sell(toCurr, amount);
         }
-
-        return new ExchangeResult(0);
+        return null;
     }
 
     private ExchangeResult buy(String currency, float amount){
         return new ExchangeResult(apiConsumer.getBuyRate(currency));
     }
 
-    private float sell(String currency, float amount){
-        return 0;
+    private ExchangeResult sell(String currency, float amount){
+        return new ExchangeResult(0);
     }
 }
