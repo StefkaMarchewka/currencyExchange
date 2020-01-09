@@ -11,32 +11,18 @@ import java.util.List;
 @Component
 public class APIConsumer {
     private RestTemplate restTemplate = new RestTemplate();
+    private final String[] codes = {"eur", "usd", "huf", "chf", "gbp"};
 
     public List getCurrenciesRate(){
-
         List<CurrencyRates> rates = new ArrayList<>();
-        CurrencyRates usdRate = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/eur/today/?format=json",
-                CurrencyRates.class);
 
-        CurrencyRates euroRate = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/eur/today/?format=json",
-                CurrencyRates.class);
-
-        CurrencyRates uahRate = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/huf/today/?format=json",
-                CurrencyRates.class);
-
-        CurrencyRates chfRate = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/chf/today/?format=json",
-                CurrencyRates.class);
-
-        CurrencyRates gbpRate = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/gbp/today/?format=json",
-                CurrencyRates.class);
-
-        rates.add(usdRate);
-        rates.add(euroRate);
-        rates.add(uahRate);
-        rates.add(chfRate);
-        rates.add(gbpRate);
+        for (String code: codes) {
+            CurrencyRates currencyRates = getCurrencyRate(code);
+            rates.add(currencyRates);
+        }
         return rates;
     }
+
 
     public float getBuyRate(String currency){
         return getBuyRate(getRate(currency));
@@ -59,6 +45,11 @@ public class APIConsumer {
     private float getSellRate(CurrencyRates currencyRates){
         Rate rate = (Rate) currencyRates.getRates().get(0);
         return rate.getBid();
+    }
+
+    private CurrencyRates getCurrencyRate(String currencyCode){
+        return restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/" + currencyCode +"/today/?format=json",
+                CurrencyRates.class);
     }
 
 

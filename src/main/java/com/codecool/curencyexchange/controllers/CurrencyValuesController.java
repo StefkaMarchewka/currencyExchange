@@ -19,13 +19,10 @@ public class CurrencyValuesController {
     private APIConsumer apiConsumer = new APIConsumer();
     @Autowired
     private ExchangeService exchangeService;
-
+    @Autowired
     private ExchangeRequestRepository repository;
 
-    public CurrencyValuesController(ExchangeRequestRepository repository){
-        this.repository = repository;
-    }
-
+    public CurrencyValuesController(){}
 
     @GetMapping()
     public List<CurrencyRates> getAvailableCurrenciesRates() {

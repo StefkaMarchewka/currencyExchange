@@ -1,11 +1,13 @@
 package com.codecool.curencyexchange.services;
 
 import com.codecool.curencyexchange.models.ExchangeResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ExchangeService {
 
+    @Autowired
     private APIConsumer apiConsumer = new APIConsumer();
 
     public ExchangeService(){}
@@ -16,7 +18,7 @@ public class ExchangeService {
         }else if (toCurr.equals("pln")){
             return sell(fromCurr, amount);
         }
-        return null;
+        return new ExchangeResult(0);
     }
 
     private ExchangeResult buy(String currency, float amount){
