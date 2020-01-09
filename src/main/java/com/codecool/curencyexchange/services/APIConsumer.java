@@ -17,7 +17,6 @@ public class APIConsumer {
         CurrencyRates euroRate = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/eur/today/?format=json",
                 CurrencyRates.class);
 
-
         CurrencyRates uahRate = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/huf/today/?format=json",
                 CurrencyRates.class);
 
