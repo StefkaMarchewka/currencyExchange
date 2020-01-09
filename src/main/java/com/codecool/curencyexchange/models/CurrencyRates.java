@@ -13,7 +13,6 @@ public class CurrencyRates {
 
     public CurrencyRates(){}
 
-
     public String getCurrency() {
         return currency;
     }

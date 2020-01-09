@@ -7,14 +7,6 @@ import javax.persistence.Id;
 
 @Entity
 public class ExchangeRequest {
-    public Long getRequest_id() {
-        return request_id;
-    }
-
-    public void setRequest_id(Long request_id) {
-        this.request_id = request_id;
-    }
-
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     Long request_id;
@@ -28,6 +20,14 @@ public class ExchangeRequest {
         this.amount = amount;
         this.fromCurr = from;
         this.toCurr = to;
+    }
+
+    public Long getRequest_id() {
+        return request_id;
+    }
+
+    public void setRequest_id(Long request_id) {
+        this.request_id = request_id;
     }
 
     public void setFromCurr(String fromCurr) {

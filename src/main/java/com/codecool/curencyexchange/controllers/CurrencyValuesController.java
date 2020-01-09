@@ -27,15 +27,26 @@ public class CurrencyValuesController {
     }
 
 
-    @GetMapping
+    @GetMapping()
     public List<CurrencyRates> getAvailableCurrenciesRates() {
         return apiConsumer.getCurrenciesRate();
     }
 
-    @PutMapping
+    @PostMapping()
     public ExchangeResult exchange(@RequestBody ExchangeRequest request){
         repository.save(request);
-        return exchangeService.exchange();
+        printResourcesFromDb();
+        return exchangeService.exchange(request.getFromCurr(), request.getToCurr(), request.getAmount());
+    }
+
+//    @PostMapping()
+//    public ExchangeRequest exchange(@RequestBody ExchangeRequest request){
+//        return request;
+//    }
+
+    private void printResourcesFromDb(){
+        List<ExchangeRequest> savedRequest = repository.findAll();
+        savedRequest.stream().forEach(request -> System.out.println(request.getRequest_id()));
     }
 
 }

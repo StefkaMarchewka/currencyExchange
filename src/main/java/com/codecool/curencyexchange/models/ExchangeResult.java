@@ -1,24 +1,31 @@
 package com.codecool.curencyexchange.models;
 
-public class ExchangeResult {
-    private ExchangeRequest request;
-    double result;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
+public class ExchangeResult {
+    //private ExchangeRequest request;
+    private float result;
+
+    @JsonCreator
     public ExchangeResult(){}
 
-    public void setRequest(ExchangeRequest request) {
-        this.request = request;
-    }
-
-    public void setResult(double result) {
+    public ExchangeResult(float result){
         this.result = result;
     }
 
-    public ExchangeRequest getRequest() {
-        return request;
+    //public void setRequest(ExchangeRequest request) {
+//        this.request = request;
+//    }
+
+    public void setResult(float result) {
+        this.result = result;
     }
 
-    public double getResult() {
+//    public ExchangeRequest getRequest() {
+//        return request;
+//    }
+
+    public float getResult() {
         return result;
     }
 }
