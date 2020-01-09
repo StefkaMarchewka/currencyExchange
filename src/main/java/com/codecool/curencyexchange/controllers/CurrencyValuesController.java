@@ -1,10 +1,13 @@
 package com.codecool.curencyexchange.controllers;
 
 import com.codecool.curencyexchange.models.CurrencyRates;
+import com.codecool.curencyexchange.models.ExchangeRequest;
+import com.codecool.curencyexchange.models.ExchangeResult;
+import com.codecool.curencyexchange.repositories.ExchangeRequestRepository;
 import com.codecool.curencyexchange.services.APIConsumer;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.codecool.curencyexchange.services.ExchangeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,11 +15,28 @@ import java.util.List;
 @RequestMapping("/exchange/values")
 public class CurrencyValuesController {
 
+    @Autowired
     private APIConsumer apiConsumer = new APIConsumer();
+    @Autowired
+    private ExchangeService exchangeService;
+
+    private ExchangeRequestRepository repository;
+
+    public CurrencyValuesController(ExchangeRequestRepository repository){
+        this.repository = repository;
+    }
+
 
     @GetMapping
     public List<CurrencyRates> getAvailableCurrenciesRates() {
         return apiConsumer.getCurrenciesRate();
     }
+
+    @PutMapping
+    public ExchangeResult exchange(@RequestBody ExchangeRequest request){
+        repository.save(request);
+        return exchangeService.exchange();
+    }
+
 }
 

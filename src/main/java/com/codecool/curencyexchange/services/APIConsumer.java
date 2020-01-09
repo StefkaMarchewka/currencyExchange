@@ -1,11 +1,13 @@
 package com.codecool.curencyexchange.services;
 
 import com.codecool.curencyexchange.models.CurrencyRates;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class APIConsumer {
 
     public List getCurrenciesRate(){

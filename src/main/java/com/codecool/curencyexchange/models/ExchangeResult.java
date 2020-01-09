@@ -4,7 +4,7 @@ public class ExchangeResult {
     private ExchangeRequest request;
     double result;
 
-    private ExchangeResult(){}
+    public ExchangeResult(){}
 
     public void setRequest(ExchangeRequest request) {
         this.request = request;
