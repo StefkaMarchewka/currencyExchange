@@ -14,16 +14,20 @@ public class ExchangeService {
         if(fromCurr.equals("pln")){
             return buy(toCurr, amount);
         }else if (toCurr.equals("pln")){
-            return sell(toCurr, amount);
+            return sell(fromCurr, amount);
         }
         return null;
     }
 
     private ExchangeResult buy(String currency, float amount){
-        return new ExchangeResult(apiConsumer.getBuyRate(currency));
+        float buyingRate = apiConsumer.getBuyRate(currency);
+        float result = amount / buyingRate;
+        return new ExchangeResult(result);
     }
 
     private ExchangeResult sell(String currency, float amount){
-        return new ExchangeResult(0);
+        float sellingRate = apiConsumer.getSellRate(currency);
+        float result = amount * sellingRate;
+        return new ExchangeResult(result);
     }
 }

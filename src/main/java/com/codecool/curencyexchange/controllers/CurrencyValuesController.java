@@ -35,14 +35,10 @@ public class CurrencyValuesController {
     @PostMapping()
     public ExchangeResult exchange(@RequestBody ExchangeRequest request){
         repository.save(request);
-        //printResourcesFromDb();
+        printResourcesFromDb();
         return exchangeService.exchange(request.getFromCurr(), request.getToCurr(), request.getAmount());
     }
 
-//    @PostMapping()
-//    public ExchangeRequest exchange(@RequestBody ExchangeRequest request){
-//        return request;
-//    }
 
     private void printResourcesFromDb(){
         List<ExchangeRequest> savedRequest = repository.findAll();
