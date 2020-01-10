@@ -17,8 +17,15 @@ public class ExchangeService {
             return buy(toCurr, amount);
         }else if (toCurr.equals("pln") && !fromCurr.equals("pln")){
             return sell(fromCurr, amount);
+        }else {
+            return handleInternationalExchange(fromCurr, toCurr, amount);
         }
-        return new ExchangeResult(0);
+        //return new ExchangeResult(0);
+    }
+
+    private ExchangeResult handleInternationalExchange(String fromCurr, String toCurr, float amount){
+        float sellResult = sell(fromCurr, amount).getResult();
+        return  buy(toCurr, sellResult);
     }
 
     private ExchangeResult buy(String currency, float amount){
