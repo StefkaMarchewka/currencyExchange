@@ -1,5 +1,6 @@
 package com.codecool.curencyexchange.services;
 
+import com.codecool.curencyexchange.models.Currency;
 import com.codecool.curencyexchange.models.CurrencyRates;
 import com.codecool.curencyexchange.models.Rate;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,15 @@ public class APIConsumer {
             rates.add(currencyRates);
         }
         return rates;
+    }
+
+    public List getCurrenciesList(){
+        List<Currency> availableCurr = new ArrayList<>();
+        for (String code: codes) {
+            Currency currency = getCurrency(getCurrency(code));
+            availableCurr.add(currency);
+        }
+        return availableCurr;
     }
 
 
@@ -52,5 +62,14 @@ public class APIConsumer {
                 CurrencyRates.class);
     }
 
+    private CurrencyRates getCurrency(String code){
+        return restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/"+ code.toLowerCase()+"/today/?format=json",
+                CurrencyRates.class);
+    }
 
+    private Currency getCurrency(CurrencyRates currencyRates){
+        String currencyName = currencyRates.getCurrency();
+        String currencyCode = currencyRates.getCode();
+        return new Currency(currencyName, currencyCode);
+    }
 }
