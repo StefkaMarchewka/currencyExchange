@@ -24,18 +24,18 @@ public class ExchangeService {
             return handleInternationalExchange(fromCurr, toCurr, amount);
     }
 
-    private ExchangeResult handleInternationalExchange(String fromCurr, String toCurr, float amount) throws InvalidInputException{
+    private ExchangeResult handleInternationalExchange(String fromCurr, String toCurr, float amount){
         float sellResult = sell(fromCurr, amount).getResult();
         return  buy(toCurr, sellResult);
     }
 
-    private ExchangeResult buy(String currency, float amount) throws InvalidInputException{
+    private ExchangeResult buy(String currency, float amount){
         float buyingRate = apiConsumer.getBuyRate(currency);
         float result = amount / buyingRate;
         return new ExchangeResult(result);
     }
 
-    private ExchangeResult sell(String currency, float amount) throws InvalidInputException{
+    private ExchangeResult sell(String currency, float amount){
         float sellingRate = apiConsumer.getSellRate(currency);
         float result = amount * sellingRate;
         return new ExchangeResult(result);

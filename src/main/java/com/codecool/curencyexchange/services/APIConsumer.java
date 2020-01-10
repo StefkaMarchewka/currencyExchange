@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class APIConsumer {
@@ -36,34 +35,27 @@ public class APIConsumer {
     }
 
 
-    public float getBuyRate(String currency) throws InvalidInputException{
+    public float getBuyRate(String currency){
         return getBuyRate(getRate(currency));
     }
 
-    public float getSellRate(String currency)throws InvalidInputException{
+    public float getSellRate(String currency){
         return getSellRate(getRate(currency));
     }
 
 
-    private Optional<CurrencyRates> getRate(String currency){
-        return Optional.ofNullable(restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/"+ currency.toLowerCase()+"/today/?format=json",
-                CurrencyRates.class));
+    private CurrencyRates getRate(String currency){
+        return restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/"+ currency.toLowerCase()+"/today/?format=json",
+                CurrencyRates.class);
     }
 
-    private float getBuyRate(Optional<CurrencyRates> optional) throws InvalidInputException{
-        Rate rate = null;
-        if(optional.isPresent()){
-            rate = (Rate) optional.get().getRates().get(0);
-        }else throw new InvalidInputException("invalid currency code");
+    private float getBuyRate(CurrencyRates currencyRates){
+        Rate rate = (Rate) currencyRates.getRates().get(0);
         return rate.getAsk();
     }
 
-    private float getSellRate(Optional<CurrencyRates> optional) throws InvalidInputException{
-        Rate rate = null;
-        if(optional.isPresent()){
-            rate = (Rate) optional.get().getRates().get(0);
-        }else throw new InvalidInputException("invalid currency code");
-        //Rate rate = (Rate) currencyRates.getRates().get(0);
+    private float getSellRate(CurrencyRates currencyRates){
+        Rate rate = (Rate) currencyRates.getRates().get(0);
         return rate.getBid();
     }
 
