@@ -1,7 +1,6 @@
 package com.codecool.curencyexchange.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.List;
 
 
@@ -12,7 +11,6 @@ public class CurrencyRates {
     private List<Rate> rates;
 
     public CurrencyRates(){}
-
 
     public String getCurrency() {
         return currency;

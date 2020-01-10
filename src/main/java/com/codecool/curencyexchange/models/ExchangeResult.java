@@ -1,24 +1,19 @@
 package com.codecool.curencyexchange.models;
 
-public class ExchangeResult {
-    private ExchangeRequest request;
-    double result;
 
+public class ExchangeResult {
+    private float result;
     public ExchangeResult(){}
 
-    public void setRequest(ExchangeRequest request) {
-        this.request = request;
-    }
-
-    public void setResult(double result) {
+    public ExchangeResult(float result){
         this.result = result;
     }
 
-    public ExchangeRequest getRequest() {
-        return request;
+    public void setResult(float result) {
+        this.result = result;
     }
 
-    public double getResult() {
+    public float getResult() {
         return result;
     }
 }
