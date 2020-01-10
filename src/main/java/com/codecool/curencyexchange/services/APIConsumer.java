@@ -18,7 +18,7 @@ public class APIConsumer {
         List<CurrencyRates> rates = new ArrayList<>();
 
         for (String code: codes) {
-            CurrencyRates currencyRates = getCurrencyRate(code);
+            CurrencyRates currencyRates = getRate(code);
             rates.add(currencyRates);
         }
         return rates;
@@ -57,6 +57,7 @@ public class APIConsumer {
         return rate.getBid();
     }
 
+    //this is the same method as getRate
     private CurrencyRates getCurrencyRate(String currencyCode){
         return restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/" + currencyCode +"/today/?format=json",
                 CurrencyRates.class);
