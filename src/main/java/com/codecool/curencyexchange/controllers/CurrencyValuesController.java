@@ -1,5 +1,6 @@
 package com.codecool.curencyexchange.controllers;
 
+import com.codecool.curencyexchange.errors.InvalidInputException;
 import com.codecool.curencyexchange.models.CurrencyRates;
 import com.codecool.curencyexchange.models.ExchangeRequest;
 import com.codecool.curencyexchange.models.ExchangeResult;
@@ -32,7 +33,7 @@ public class CurrencyValuesController {
     }
 
     @PostMapping()
-    public ResponseEntity<ExchangeResult> exchange(@RequestBody ExchangeRequest request){
+    public ResponseEntity<ExchangeResult> exchange(@RequestBody ExchangeRequest request) throws InvalidInputException {
         repository.save(request);
         printResourcesFromDb();
         return new ResponseEntity<>(exchangeService.exchange(request.getFromCurr(), request.getToCurr(), request.getAmount()), HttpStatus.CREATED);

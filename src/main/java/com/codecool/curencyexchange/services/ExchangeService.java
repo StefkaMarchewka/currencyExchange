@@ -1,5 +1,6 @@
 package com.codecool.curencyexchange.services;
 
+import com.codecool.curencyexchange.errors.InvalidInputException;
 import com.codecool.curencyexchange.models.ExchangeResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,12 +13,13 @@ public class ExchangeService {
 
     public ExchangeService(){}
 
-    //todo error handling if both currencies are the same
-    public ExchangeResult exchange(String fromCurr, String toCurr, float amount){
+    public ExchangeResult exchange(String fromCurr, String toCurr, float amount) throws InvalidInputException{
         if(fromCurr.equals("pln") && !toCurr.equals("pln")){
             return buy(toCurr, amount);
         }else if (toCurr.equals("pln") && !fromCurr.equals("pln")){
             return sell(fromCurr, amount);
+        }else if(toCurr.equals(fromCurr)){
+            throw new InvalidInputException("Change one of the currencies");
         }else
             return handleInternationalExchange(fromCurr, toCurr, amount);
     }
