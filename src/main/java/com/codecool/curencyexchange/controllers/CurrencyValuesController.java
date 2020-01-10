@@ -7,6 +7,8 @@ import com.codecool.curencyexchange.repositories.ExchangeRequestRepository;
 import com.codecool.curencyexchange.services.APIConsumer;
 import com.codecool.curencyexchange.services.ExchangeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,10 +32,10 @@ public class CurrencyValuesController {
     }
 
     @PostMapping()
-    public ExchangeResult exchange(@RequestBody ExchangeRequest request){
+    public ResponseEntity<ExchangeResult> exchange(@RequestBody ExchangeRequest request){
         repository.save(request);
         printResourcesFromDb();
-        return exchangeService.exchange(request.getFromCurr(), request.getToCurr(), request.getAmount());
+        return new ResponseEntity<>(exchangeService.exchange(request.getFromCurr(), request.getToCurr(), request.getAmount()), HttpStatus.CREATED);
     }
 
 

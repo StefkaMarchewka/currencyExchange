@@ -12,15 +12,14 @@ public class ExchangeService {
 
     public ExchangeService(){}
 
+    //todo error handling if both currencies are the same
     public ExchangeResult exchange(String fromCurr, String toCurr, float amount){
         if(fromCurr.equals("pln") && !toCurr.equals("pln")){
             return buy(toCurr, amount);
         }else if (toCurr.equals("pln") && !fromCurr.equals("pln")){
             return sell(fromCurr, amount);
-        }else {
+        }else
             return handleInternationalExchange(fromCurr, toCurr, amount);
-        }
-        //return new ExchangeResult(0);
     }
 
     private ExchangeResult handleInternationalExchange(String fromCurr, String toCurr, float amount){
