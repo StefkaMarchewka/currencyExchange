@@ -13,9 +13,9 @@ public class ExchangeService {
     public ExchangeService(){}
 
     public ExchangeResult exchange(String fromCurr, String toCurr, float amount){
-        if(fromCurr.equals("pln")){
+        if(fromCurr.equals("pln") && !toCurr.equals("pln")){
             return buy(toCurr, amount);
-        }else if (toCurr.equals("pln")){
+        }else if (toCurr.equals("pln") && !fromCurr.equals("pln")){
             return sell(fromCurr, amount);
         }
         return new ExchangeResult(0);
