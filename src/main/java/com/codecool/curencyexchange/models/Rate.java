@@ -1,12 +1,10 @@
 package com.codecool.curencyexchange.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.time.LocalDate;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Rate {
-
     private float bid;
     private float ask;
     private LocalDate effectiveDate;
