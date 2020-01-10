@@ -1,5 +1,6 @@
 package com.codecool.curencyexchange.services;
 
+import com.codecool.curencyexchange.errors.InvalidInputException;
 import com.codecool.curencyexchange.models.Currency;
 import com.codecool.curencyexchange.models.CurrencyRates;
 import com.codecool.curencyexchange.models.Rate;
@@ -18,7 +19,7 @@ public class APIConsumer {
         List<CurrencyRates> rates = new ArrayList<>();
 
         for (String code: codes) {
-            CurrencyRates currencyRates = getCurrencyRate(code);
+            CurrencyRates currencyRates = getRate(code);
             rates.add(currencyRates);
         }
         return rates;
@@ -42,6 +43,7 @@ public class APIConsumer {
         return getSellRate(getRate(currency));
     }
 
+
     private CurrencyRates getRate(String currency){
         return restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/"+ currency.toLowerCase()+"/today/?format=json",
                 CurrencyRates.class);
@@ -57,6 +59,7 @@ public class APIConsumer {
         return rate.getBid();
     }
 
+    //this is the same method as getRate
     private CurrencyRates getCurrencyRate(String currencyCode){
         return restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/c/" + currencyCode +"/today/?format=json",
                 CurrencyRates.class);
