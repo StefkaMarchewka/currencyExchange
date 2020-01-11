@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/exchange/values")
@@ -36,9 +37,13 @@ public class CurrencyValuesController {
 
     @PostMapping()
     public ResponseEntity<ExchangeResult> exchange(@RequestBody ExchangeRequest request) throws InvalidInputException {
+        ExchangeResult exchangeResult = exchangeService.exchange(request.getFromCurr(), request.getToCurr(), request.getAmount());
+        request.setAsk(exchangeResult.getAsk());
+        request.setBid(exchangeResult.getBid());
+
         repository.save(request);
-        printLoggingInfo();
-        return new ResponseEntity<>(exchangeService.exchange(request.getFromCurr(), request.getToCurr(), request.getAmount()), HttpStatus.CREATED);
+        printLoggingInfo(request);
+        return new ResponseEntity<>(exchangeResult, HttpStatus.CREATED);
     }
 
 
@@ -47,10 +52,27 @@ public class CurrencyValuesController {
         savedRequest.stream().forEach(request -> System.out.println(request.getRequest_id()));
     }
 
-    private void printLoggingInfo(){
+    private void printLoggingInfo(ExchangeRequest req){
         logger.info("Request save to database");
-        List<ExchangeRequest> savedRequest = repository.findAll();
-        logger.info("there are " + savedRequest.size()+" records in database");
+        ExchangeRequest savedRequest = getRequestFromDb(req);
+
+        System.out.println("Request id: " + savedRequest.getRequest_id());
+        System.out.println("Requested amount: " + savedRequest.getAmount());
+
+        System.out.println("Sold currency value: " + savedRequest.getFromCurr());
+        System.out.println("Selling value: " + savedRequest.getBid());
+
+        System.out.println("Bought currency Value: " + savedRequest.getToCurr());
+        System.out.println("Buying value: " + savedRequest.getAsk());
+
+        List<ExchangeRequest> savedRequests = repository.findAll();
+        logger.info("there are " + savedRequests.size()+" records in database");
+    }
+
+    private ExchangeRequest getRequestFromDb(ExchangeRequest req) {
+        long reqId = req.getRequest_id();
+        Optional savedReqOptional = repository.findById(reqId);
+        return (ExchangeRequest) savedReqOptional.get();
     }
 
 }

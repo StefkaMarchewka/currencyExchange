@@ -26,18 +26,26 @@ public class ExchangeService {
 
     private ExchangeResult handleInternationalExchange(String fromCurr, String toCurr, float amount){
         float sellResult = sell(fromCurr, amount).getResult();
-        return  buy(toCurr, sellResult);
+        float sellingRate = apiConsumer.getSellRate(fromCurr);
+        return  buy(toCurr, sellResult, sellingRate);
     }
 
     private ExchangeResult buy(String currency, float amount){
         float buyingRate = apiConsumer.getBuyRate(currency);
         float result = amount / buyingRate;
-        return new ExchangeResult(result);
+        return new ExchangeResult(result, 0, buyingRate);
     }
+
+    private ExchangeResult buy(String currency, float amount, float sellRate){
+        float buyingRate = apiConsumer.getBuyRate(currency);
+        float result = amount / buyingRate;
+        return new ExchangeResult(result, sellRate, buyingRate);
+    }
+
 
     private ExchangeResult sell(String currency, float amount){
         float sellingRate = apiConsumer.getSellRate(currency);
         float result = amount * sellingRate;
-        return new ExchangeResult(result);
+        return new ExchangeResult(result, sellingRate, 0);
     }
 }

@@ -9,10 +9,12 @@ import javax.persistence.Id;
 public class ExchangeRequest {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    Long request_id;
-    String fromCurr;
-    String toCurr;
-    float amount;
+    private Long request_id;
+    private String fromCurr;
+    private String toCurr;
+    private float amount;
+    private float bid;
+    private float ask;
 
     public ExchangeRequest(){}
 
@@ -52,6 +54,22 @@ public class ExchangeRequest {
 
     public float getAmount() {
         return amount;
+    }
+
+    public void setAsk(float ask) {
+        this.ask = ask;
+    }
+
+    public float getBid() {
+        return bid;
+    }
+
+    public float getAsk() {
+        return ask;
+    }
+
+    public void setBid(float bid) {
+        this.bid = bid;
     }
 
 
