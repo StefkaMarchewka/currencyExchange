@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.codecool</groupId>
-    <artifactId>curencyexchange</artifactId>
+    <artifactId>currencyExchange</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>curencyexchange</name>
+    <name>currencyExchange</name>
     <description>interview project of currency exchange rest api</description>
 
     <properties>
