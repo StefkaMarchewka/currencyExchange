@@ -1,8 +1,17 @@
-#https://spring.io/guides/gs/spring-boot-docker/
+
+FROM maven:alpine
+
+WORKDIR /app
+COPY pom.xml ./pom.xml
+COPY src ./src
+RUN mvn package --batch-mode
+RUN mvn clean package --batch-mode
+
 
 FROM openjdk:8-jdk-alpine
-ARG DEPENDENCY=target/dependency
-COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY ${DEPENDENCY}/META-INF /app/META-INF
-COPY ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","curencyexchange.Application"]
+
+COPY --from=0 /app/target/currencyExchange-0.0.1-SNAPSHOT.jar /app/
+
+EXPOSE 8080
+WORKDIR /app
+CMD ["java", "-jar", "currencyExchange-0.0.1-SNAPSHOT.jar"]
