@@ -2,11 +2,11 @@ Currency exchange application in form of REST API. Allows to count exchange valu
 actual exchange rates published by NBP for 5 currencies. 
 
 Application allows to see list of supported currencies with GET request on following endpoint:
-    http://localhost:8080/exchange/currencies
-Application allows to see list of supported currencies and their actual values with GET request on following endpoint: 
-    http://localhost:8080/exchange/values
+http://localhost:8080/exchange/currencies
+Application allows to see list of supported currencies and their actual values with GET request on following endpoint:
+http://localhost:8080/exchange/values
 Application allows to count value of exchanged currencies with POST request on following endpoint:
-    http://localhost:8080/exchange/values
+http://localhost:8080/exchange/values
     
     POST request accept data in form on JSON file. Valid JSON file format:
     {"fromCurr":"pln",
