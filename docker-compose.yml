@@ -1,16 +1,12 @@
-#  https://www.callicoder.com/spring-boot-mysql-react-docker-compose-example/
-# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
 
 version: '3'
 
-# Define services
 services:
-  # App backend service
   app-server:
     container_name: currency
     image: currency
     build: ./
     ports:
-      - "8080:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+      - "8080:8080"
     restart: always
 
